@@ -16,7 +16,7 @@ def detect_face(imageAsMatrix):
 
 def get_landmarks(imageAsMatrix, faceRect):
 	# Landmark model location
-	PREDICTOR_PATH = "./1/data/models/shape_predictor_68_face_landmarks.dat"
+	PREDICTOR_PATH = "./shape_predictor_68_face_landmarks.dat"
 	# The landmark detector is implemented in the shape_predictor class
 	landmarkDetector = dlib.shape_predictor(PREDICTOR_PATH)
 	# List to store landmarks of all detected faces
@@ -35,7 +35,7 @@ def get_landmarks(imageAsMatrix, faceRect):
 	im = imageAsMatrix
 	imDlib = cv.cvtColor(im, cv.COLOR_BGR2RGB)
 	size = im.shape
-	#rect = dlib.rectangle(int(faceRects[0].left()),int(faceRects[0].top()),int(faceRects[0].right()),int(faceRects[0].bottom()))
+	
 	landmarks = landmarkDetector(imDlib, faceRect)
 	for p in landmarks.parts():
 		landmarksAll.append((int(p.x),int(p.y)))

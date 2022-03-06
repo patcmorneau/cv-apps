@@ -10,11 +10,6 @@ import numpy as np
 import numpy.linalg as LA
 import dlib
 
-v1 = unit_vector(np.array([0.5, -0.5]))
-v2 = unit_vector(np.array([1,0]))
-
-print(angle_between(v1,v2))
-
 def calculate_accuracy(val, val2):
 	total = val + val2
 	ans = total * 100/33
