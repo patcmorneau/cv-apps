@@ -7,7 +7,6 @@ import os
 import CVLIB
 import cv2 as cv
 import numpy as np
-import numpy.linalg as LA
 import dlib
 
 def calculate_accuracy(val, val2):
@@ -64,19 +63,26 @@ while True:
 	width = int(im.shape[1] * scale_percent / 100)
 	height = int(im.shape[0] * scale_percent / 100)
 	frame = cv.resize(im, (width, height), interpolation= cv.INTER_LINEAR)
-	rect = CVLIB.detect_face(frame)
+	"""
 	if(len(rect) == 1):
 		rect = dlib.rectangle(int(rect[0].left()),int(rect[0].top()),int(rect[0].right()),int(rect[0].bottom()))
 		rect2 = [[rect.left(), rect.top()], [rect.right(), rect.bottom()]]
 		#print(rect2[0][1])
 		frame = cv.rectangle(frame, rect2[0], rect2[1], (255,0,0), 2)
-	if x == 0 or x % 5 == 0:
+	"""
+	if x == 0 or x % 3 == 0:
 		#print(rect2, type(rect2))
-		landmarks = CVLIB.get_landmarks(frame, rect)
+		rect = CVLIB.detect_face(frame)
+		if len(rect)>0:
+			rect = dlib.rectangle(int(rect[0].left()),int(rect[0].top()),int(rect[0].right()),int(rect[0].bottom()))
+			rect2 = [[rect.left(), rect.top()], [rect.right(), rect.bottom()]]
+			#print(rect2[0][1])
+			landmarks = CVLIB.get_landmarks(frame, rect)
 		
 	if(len(landmarks) == 68):
 		smile_detection(frame, landmarks, rect2, True)
-	
+	if len(rect2) > 0:
+		frame = cv.rectangle(frame, rect2[0], rect2[1], (255,0,0), 2)
 	#frame = CVLIB.draw_landmarks(frame,landmarks)
 	
 	frame = cv.resize(frame, (width*2, height*2), interpolation= cv.INTER_LINEAR)
