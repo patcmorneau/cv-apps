@@ -1,9 +1,9 @@
+import os, sys
 
-import sys
-sys.path.insert(0, '../mathlib') # https://github.com/patcmorneau/mathlib
-import mathlib
+mathlibDir = os.path.abspath(os.path.join(os.path.dirname(__file__), "mathlib"))
+sys.path.append(mathlibDir)
 
-import os
+from mathlib import mathlib
 import CVLIB
 import cv2 as cv
 import numpy as np
